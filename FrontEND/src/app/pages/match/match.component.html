@@ -1,0 +1,222 @@
+<nb-card class="col-md-12 col-lg-8 col-xxxl-6 mx-auto" *ngIf="addMatch">
+    <nb-card-header>
+      
+      
+      
+      <h5 style="margin-left: 40%;" *ngIf="type=='0' ; else elseBlock">Add match</h5>
+      <ng-template #elseBlock>
+
+        <h5 style="margin-left: 40%;">Edit match</h5>
+      </ng-template>
+    </nb-card-header>
+
+    <nb-card-body>
+      <form class="form" [formGroup]="addForm" (ngSubmit)="onSubmit()" aria-labelledby="title">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">   
+            <label for="inputEquipe1" class="label">Team 1</label><br>
+            <input #autoInput1
+            nbInput
+            formControlName="equipe1"
+            fullWidth
+            type="text"
+            name="_premiereEquipe"
+            [(ngModel)]="match._premiereEquipe" 
+            (input)="onChange()"
+            placeholder="Team 1"
+            pattern="[A-Z a-z]{3,30}"
+            autofocus
+            required
+            [status]="getEquipe1.dirty ? (getEquipe1.invalid  ? 'danger' : 'success') : 'basic'"
+            [attr.aria-invalid]="getEquipe1.invalid && getEquipe1.touched ? true : null"
+            [nbAutocomplete]="auto" />
+            <nb-autocomplete #auto (selectedChange)="onSelectionChange($event)">
+    
+              <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                {{ option }}
+              </nb-option>
+        
+            </nb-autocomplete>
+
+
+            
+            
+            <div *ngIf="erreurInvalidEq1" style="color: #ff3d71;"> required Team 1 </div>
+   
+          </div>
+        </div>
+       <div class="col-sm-6">
+          <div class="form-group">
+            <label for="inputEquipe2" class="label">Team 2</label><br>
+            <input #autoInput2
+            nbInput
+            formControlName="equipe2"
+            type="text"
+            fullWidth
+            name="_deuxiemeEquipe"
+            [(ngModel)]="match._deuxiemeEquipe" 
+            (input)="onChange2()"
+            placeholder="Team 2"
+            pattern="[A-Z a-z]{3,30}"
+            autofocus
+            required
+            [status]="getEquipe2.dirty ? (getEquipe2.invalid  ? 'danger' : 'success') : 'basic'"
+            [attr.aria-invalid]="getEquipe2.invalid && getEquipe2.touched ? true : null"
+            [nbAutocomplete]="auto2" />
+            <nb-autocomplete #auto2 (selectedChange)="onSelectionChange2($event)">
+    
+              <nb-option *ngFor="let option2 of filteredOptions2$ | async" [value]="option2">
+                {{ option2 }}
+              </nb-option>
+        
+            </nb-autocomplete>
+   
+            <div *ngIf="erreurInvalidEq2" style="color: #ff3d71;"> required Team 2</div>
+
+          </div>
+        </div>
+      </div>
+<div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="inputPrix" class="label">Price</label>
+            <input  type="number" 
+            formControlName="prix"
+            pattern='[0-9]+(\\.[0-9][0-9]?)?'
+            autofocus
+            required
+            [status]="getPrix.dirty ? (getPrix.invalid  ? 'danger' : 'success') : 'basic'"
+            [attr.aria-invalid]="getPrix.invalid && getPrix.touched ? true : null"
+            [(ngModel)]="match.prix" required nbInput fullWidth name="prix" placeholder="Price"class="form-control">
+            <div *ngIf="erreurInvalidPrix" style="color: #ff3d71;">p required </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="inputDateMatch" class="label">Date</label>
+            <input  type="datetime-local" 
+            formControlName="date"
+            [(ngModel)]="match._dateMatch" 
+            required
+            autofocus
+            fieldSize="large"
+            [status]="getDate.dirty ? (getDate.invalid  ? 'danger' : 'success') : 'basic'"
+            [attr.aria-invalid]="getDate.invalid && getDate.touched ? true : null"
+            required nbInput fullWidth name="_dateMatch" placeholder="Date"class="form-control">
+            <div *ngIf="erreurInvalidDate" style="color: #ff3d71;">required Date</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="inputspectateur" class="label">Number of spectators </label>
+            <input  type="number" 
+            formControlName="spectateurs"
+            pattern="[0-9]{4,8}"
+            required
+            autofocus
+            fieldSize="large"
+            [status]="getSpectateurs.dirty ? (getSpectateurs.invalid  ? 'danger' : 'success') : 'basic'"
+            [attr.aria-invalid]="getSpectateurs.invalid && getSpectateurs.touched ? true : null"
+            [(ngModel)]="match._nbSpectateur" required nbInput fullWidth name="_nbSpectateur" placeholder="Nombre de spectateurs.."class="form-control">
+            <div *ngIf="erreurInvalidSpectateur" style="color: #ff3d71;"> required number of spectators </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+              <label for="inputstade" class="label">Stadium</label>
+
+              <nb-select placeholder="Stadium" 
+              formControlName="stade"
+              required
+            autofocus
+            fieldSize="large"
+            [status]="getStade.dirty ? (getStade.invalid  ? 'danger' : 'success') : 'basic'"
+            [attr.aria-invalid]="getStade.invalid && getStade.touched ? true : null"
+              fullWidth required [(ngModel)]="match._stade" name="_stade" [(selected)]="selectedItem">
+                <nb-option value="Al-Rayyan Stadium">Al-Rayyan Stadium</nb-option>
+                <nb-option value="Al Thumama Stadium">Al Thumama Stadium</nb-option>
+                <nb-option value="Khalifa International Stadium">Khalifa International Stadium</nb-option>
+                <nb-option value="Lusail Stadium">Lusail Stadium</nb-option>
+                <nb-option value="Education City Stadium">Education City Stadium</nb-option>
+                <nb-option value="Al-Janoub Stadium">Al-Janoub Stadium</nb-option>
+                <nb-option value="Al Bayt Stadium">Al Bayt Stadium</nb-option>
+              </nb-select>
+              <div *ngIf="erreurInvalidStade" style="color: #ff3d71;">required Stadium</div>
+            </div>
+          </div>
+      </div>
+  
+      <div class="form-group">
+        <div *ngIf="type=='0' ; else elseBlock1">
+          <button type="submit" nbButton status="primary" style="margin-left: 91%;">Add</button>
+        </div>
+      <ng-template #elseBlock1>
+
+        <button type="submit" nbButton status="primary" style="margin-left: 90%;">Edit</button>
+      </ng-template>
+       
+        
+    </div>
+</form>
+    </nb-card-body>
+</nb-card>
+
+   <!--****************************************************************-->
+   <nb-card >
+       <nb-card-body>
+     <nb-alert *ngIf="erreur" status="danger" >Cannot delete a match associated with a user</nb-alert>
+        <br>
+      <div class="row">
+        <div class="col-sm-2">
+          <div class="search-label" for="search" >Search 
+            <nb-search type="rotate-layout" tag="rotate-layout"></nb-search>
+     
+           </div>
+        </div>
+        <div class="col-sm-8">
+            
+        </div>
+        <div class="col-sm-2">
+            <button nbButton status="primary" (click)="addmatch()" > + Add match</button>
+        </div>
+      </div>
+      <br>
+         <table class="table table-bordered text-center">
+           <thead>
+             <tr>
+              <th  class="label col-form-label" scope="col">Team 1</th>
+              <th  class="label col-form-label" scope="col">Team 2</th>
+              <th  class="label col-form-label" scope="col">Stadium</th>
+              <th   class="label col-form-label" scope="col">Number of spectators</th>
+               <th  class="label col-form-label" scope="col">Date</th>
+               <th  class="label col-form-label" scope="col">Price</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let M of matchs | filter:searchText | paginate: { itemsPerPage: 5, currentPage: p }">
+           
+              <td  class="label col-form-label">{{M._premiereEquipe}}</td>
+              <td  class="label col-form-label">{{M._deuxiemeEquipe}}</td>
+              <td  class="label col-form-label">{{M._stade}}</td>
+              <td  class="label col-form-label">{{M._nbSpectateur}}</td>
+                 <td  class="label col-form-label">{{M._dateMatch | date:"M/d/yy, h:mm a"}}</td> 
+                 <td  class="label col-form-label">{{M.prix}}$</td>
+                 
+                 <td>
+                  
+                  
+                   <button  (click)="updateleMatch(M)"  status="primary" nbButton style="margin-right: 5%;"><nb-icon icon="edit-outline" ></nb-icon> </button>
+                   <button  (click)="deleteMatch(M.id)"  status="danger" nbButton><nb-icon icon="trash-2-outline" ></nb-icon> </button>
+                 </td>
+             </tr>
+           </tbody>
+         </table>
+         <div class="my-pagination">
+         
+          <pagination-controls (pageChange)="p = $event" screenReaderCurrentLabel="You're on page" responsive="true" ></pagination-controls>
+         </div>
+       </nb-card-body>
+    </nb-card>

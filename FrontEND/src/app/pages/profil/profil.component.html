@@ -1,0 +1,79 @@
+<nb-card >
+
+    <nb-card-header> 
+        PROFIL 
+  
+     </nb-card-header>
+     <nb-card-body>
+       <div class="row R">
+         <label  class="label col-sm-6 col-form-label">First Name :</label>
+         <div class="col-sm-6">
+           {{user._nom}}
+         </div>
+       </div>
+       <div class="row R">
+         <label class="label col-sm-6 col-form-label">Last Name: </label>
+         <div class="col-sm-6">
+        
+           {{user._prenom}}
+         </div>
+       </div>
+       <div class="row R">
+         <label class="label col-sm-6 col-form-label">Phone :</label>
+         <div class="col-sm-3">
+    
+           +{{user._numTel}}
+         </div>
+      
+       </div>
+       <div class="row R">
+         <label class="label col-sm-6 col-form-label">Username :</label>
+         <div class="col-sm-6">
+      
+           {{user.username}}
+         </div>
+       </div>
+       <div class="row R">
+         <label class="label col-sm-6 col-form-label">Date of Birth : </label>
+         <div class="col-sm-6">
+           {{user._dateNaissance | date:"dd/MM/yyyy"}}
+         </div>
+       </div>
+        <table class="table table-bordered text-center">
+          <thead>
+            <tr>
+         
+              <th  class="label col-form-label" scope="col">Team 1</th>
+              <th  class="label col-form-label" scope="col">Team 2</th>
+              <th  class="label col-form-label" scope="col">Stadium</th>
+              <th   class="label col-form-label" scope="col">Number of spectators</th>
+               <th  class="label col-form-label" scope="col">Date</th>
+               <th  class="label col-form-label" scope="col">Price</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of Panier | filter:searchText | paginate: { itemsPerPage: 5, currentPage: p }">
+
+              <td class="label col-form-label">{{p.match._premiereEquipe}}</td>
+              <td class="label col-form-label">{{p.match._deuxiemeEquipe}}</td>
+              <td class="label col-form-label">{{p.match._stade}}</td>
+              <td class="label col-form-label">{{p.match._nbSpectateur}}</td>
+              <td class="label col-form-label">{{p.match._dateMatch | date:"yyyy/MM/dd"}}</td>
+              <td class="label col-form-label">{{p.ticket}}</td>
+               
+  
+            </tr>
+          </tbody>
+        </table>
+        <div class="my-pagination">
+        
+         <pagination-controls (pageChange)="p = $event" screenReaderCurrentLabel="You're on page" responsive="true" ></pagination-controls>
+        </div>
+ 
+   
+     </nb-card-body>
+   
+   </nb-card>
+   
+   

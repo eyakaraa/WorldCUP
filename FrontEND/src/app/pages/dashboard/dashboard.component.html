@@ -1,0 +1,76 @@
+<div class="row">
+  <img src="../../../assets/images/Acceuil.jpg" alt="Acceuil" style="width:100%;">
+  
+  <div class="centered display-1">Welcome To QATAR</div>
+ 
+</div>
+<br>
+<br>
+<div class="row">
+  <div class="col-xxxl-9 col-xl-12">
+    <ngx-rooms></ngx-rooms>
+  </div>
+</div>
+
+<div class="row">
+  
+
+  <div class="col-xxxl-9 col-xl-12">
+    
+<ngx-host-cities></ngx-host-cities>
+  </div>
+
+ 
+
+
+</div>
+<nb-card class="border">
+  <nb-card-header>WINNERS</nb-card-header>
+  <nb-card-body class="background">
+  <carousel height="210"  >
+    <div class="carousel-cell" *ngFor="let winner of winners">
+      <nb-card >
+        <nb-card-header>
+          {{winner.host}}    {{winner.date}} 
+        </nb-card-header>
+        <nb-card-body>
+          <h6>{{winner.country}}</h6>
+       
+       <img
+    src={{winner.source}}
+    width="30"
+    alt="{{winner.country}}">
+          
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </carousel>
+</nb-card-body>
+</nb-card>
+
+<carousel cellsToShow="1" height="300"> 
+  
+  <div class="carousel-cell" *ngFor="let stade of stadiums">
+  <nb-card>
+    <nb-card-body>             
+      <div class="row show-grid" >
+        
+        <div class="col-md-6">                          
+          <img src="{{stade.source}}">                 
+        </div> 
+        <div class="col-md-6">
+          <div>
+            <h4>{{stade.title}}</h4>
+            <p style="padding-top:4%;padding-right:7%">
+              {{stade.description}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>
+</carousel> 
+
+
+

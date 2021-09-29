@@ -1,0 +1,86 @@
+
+  <br>
+<nb-card class="col-md-12 col-lg-8 col-xxxl-6 mx-auto">
+    <nb-card-body>
+        <div class="row">
+      <div class="col-xxl-7">
+<h1 id="title" class="title text-center">Sign in</h1>
+<nb-alert *ngIf="classReference.erreur" status="danger">Verify your email and/or password</nb-alert>
+
+<br>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" aria-labelledby="title">
+
+  <div class="form-control-group">
+    <label class="label" for="input-email">Email address:</label>
+    
+    <br>
+    <input nbInput formControlName="emailFormControl"
+           fullWidth
+           name="email"
+           placeholder="Email address"
+           fieldSize="large"
+           name="email"
+           id="input-email"
+           pattern=".+@.+\..+"
+           autofocus
+           required
+           [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : 'basic'"
+           [attr.aria-invalid]="email.invalid && email.touched ? true : null">
+           <div *ngIf="erreurInvalidEmail" style="color: #ff3d71;">Invalid email address </div>
+
+  </div>
+  <br>
+    
+  <div class="form-control-group">
+    <span class="label-with-link">
+      <label class="label" for="input-password">Password:</label>
+    </span>
+
+    <br>
+    
+    <input nbInput formControlName="passFormControl"
+           fullWidth
+           id="input-password"
+           name="password"
+           placeholder="Password" 
+           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+           type="password"
+           autofocus
+           required
+           id="input-password"
+           fieldSize="large"
+           [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : 'basic'"
+           [attr.aria-invalid]="password.invalid && password.touched ? true : null"
+           >
+           <div *ngIf="erreurInvalidPass" style="color: #ff3d71;">Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters </div>
+
+  </div>
+  <br>
+  <br>
+
+
+  <button nbButton
+          fullWidth
+          status="primary"
+          size="large">
+          Sign in
+        </button>
+</form>
+
+
+<br>
+<br>
+<section class="another-action" aria-label="Register">
+  Don't have an account? <a class="text-link" href="pages/register">Sign up</a>
+</section>
+<br>
+      </div>
+      <div class="col-xxl-3">
+          <img src="../../../assets/images/rasabuaboud1.jpg">
+      </div>
+</div>
+    </nb-card-body>
+  </nb-card>
+
+    
+

@@ -1,0 +1,112 @@
+<nb-card *ngIf="show">
+
+    <nb-card-header>Tickets</nb-card-header>
+     <nb-card-body>
+       <div class="row">
+         <label class="label col-sm-3 col-form-label">Date</label>
+         <div class="col-sm-9">
+           {{M._dateMatch | date:"yyyy/MM/dd"}}
+         </div>
+       </div>
+       <div class="row">
+         <label class="label col-sm-3 col-form-label">Number of spectators </label>
+         <div class="col-sm-9">
+          {{M._nbSpectateur}}
+         </div>
+       </div>
+       <div class="row">
+         <label class="label col-sm-3 col-form-label">Team 1 </label>
+         <div class="col-sm-9">
+          {{M._premiereEquipe}}
+         </div>
+       </div>
+       <div class="row">
+        <label class="label col-sm-3 col-form-label">Team 2 </label>
+        <div class="col-sm-9">
+         {{M._deuxiemeEquipe}}
+        </div>
+      </div>
+       <form  [formGroup]="matchForm">
+         <div class="form-control-group row">
+           <label  class="label col-sm-3 col-form-label">Number of Tickets</label>
+           <div class="col-sm-9">
+        <input formControlName="ticket" class="form-control" min="1" max="{{M._nbSpectateur}}" style="width:auto;" type="number" value="1" nbInput>  
+           </div>
+         </div>
+         <div class="row">
+           <label class="label col-sm-3 col-form-label">Price</label>
+           <div class="col-sm-9">
+            {{M.prix}}$
+           </div>
+         </div>
+    
+   
+       
+       </form>
+     </nb-card-body>
+     <nb-card-footer>
+
+      <div class="row ">
+        <div class="col-sm-3">
+          <label class="label col-form-label">Total Price</label> </div>
+          <div class="col-sm-3">               {{M.prix*ticket.value}}$
+          
+       
+       </div>
+       <div class="col-sm-6">
+        <button type="submit" nbButton status="primary" (click)="onSubmit()">Submit</button>
+       </div>
+     </div>
+
+
+     
+     </nb-card-footer>
+   </nb-card>
+   
+   <nb-card>
+     
+       <nb-card-body>
+  
+     
+         <div class="search-label" for="search" >Search 
+       <nb-search type="rotate-layout" tag="rotate-layout"></nb-search>
+
+      </div>
+     
+      
+       <br>
+     
+         <table class="table table-bordered text-center">
+           <thead>
+             <tr>
+              <th  class="label col-form-label" scope="col">Team 1</th>
+              <th  class="label col-form-label" scope="col">Team 2</th>
+              <th  class="label col-form-label" scope="col">Stadium</th>
+              <th   class="label col-form-label" scope="col">Number of spectators</th>
+               <th  class="label col-form-label" scope="col">Date</th>
+               <th  class="label col-form-label" scope="col">Price</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let M of match | filter:searchText | paginate: { itemsPerPage: 5, currentPage: p }">
+              <td  class="label col-form-label">{{M._premiereEquipe}}</td>
+              <td  class="label col-form-label">{{M._deuxiemeEquipe}}</td>
+              <td  class="label col-form-label">{{M._stade}}</td>
+              <td  class="label col-form-label">{{M._nbSpectateur}}</td>
+                 <td  class="label col-form-label">{{M._dateMatch | date:"M/d/yy, h:mm a"}}</td> 
+                 <td  class="label col-form-label">{{M.prix}}$</td>
+                 
+                 <td>
+                <nb-icon icon="checkmark-circle-outline" status="primary"  (click)="voirtickets(M)"  ></nb-icon> 
+                 
+                 </td>
+             </tr>
+           </tbody>
+         </table>
+         <div class="my-pagination">
+         
+          <pagination-controls (pageChange)="p = $event" screenReaderCurrentLabel="You're on page" responsive="true" ></pagination-controls>
+         </div>
+       </nb-card-body>
+     </nb-card>
+   

@@ -1,0 +1,62 @@
+<ng-template #cardS>
+    <nb-card class="popover-card">
+      <nb-card-body >
+        {{selectedCitie.description}}
+      </nb-card-body>
+    </nb-card>
+  </ng-template>
+  
+  <nb-card size="giant">
+  
+    <nb-card-header>
+      HOST CITIES
+  
+      <button class="single-view-button"
+              nbButton
+              size="small"
+              [appearance]="isSingleView ? 'filled' : 'outline'"
+              (click)="isSingleView = true">
+        <i class="nb-square"></i>
+      </button>
+      <button class="grid-view-button"
+              nbButton
+              size="small"
+              [appearance]="isSingleView ? 'outline' : 'filled'"
+              (click)="isSingleView = false">
+        <nb-icon icon="grid" pack="eva"></nb-icon>
+      </button>
+    </nb-card-header>
+  
+    <div class="grid-container">
+  
+      <div class="single-view" *ngIf="isSingleView">
+        <div class="citie btn-group btn-divided-group btn-outline-divided-group " [style.background-image]="'url(' + selectedCitie.source + ')'">
+          <span class="citie-name" [nbPopover]="cardS" nbPopoverTrigger="hover" nbPopoverPlacement="top">{{ selectedCitie.title }}</span>
+        </div>
+      </div>
+  
+      <div class="grid-view" *ngIf="!isSingleView">
+        <div class="citie btn-group btn-divided-group btn-outline-divided-group"
+             *ngFor="let citie of cities"
+             [style.background-image]="'url(' + citie.source + ')'"
+             (click)="selectCitie(citie)">
+             <ng-template #card>
+              <nb-card class="popover-card">
+                <nb-card-body >
+                  {{citie.description}}
+                </nb-card-body>
+              </nb-card>
+            </ng-template>
+  
+          <span class="citie-name" [nbPopover]="card" nbPopoverTrigger="hover" nbPopoverPlacement="top"> {{ citie.title }}</span>
+  
+            
+        </div>
+      </div>
+  
+    </div>
+  
+   
+  </nb-card>
+  
+  

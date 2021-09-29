@@ -1,0 +1,35 @@
+@import '../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+@include nb-install-component() {
+.R{
+  height: 85px;
+  text-align:left;
+    font-size: 105%;
+
+}
+label{
+  font-size: 105%;
+  padding-left: 35%;
+}
+nb-card-header{
+
+  font-size: 140%;
+
+  //margin-top:5%;
+}
+
+
+    .my-pagination{
+        display: flex;
+        justify-content: center;
+        
+        }
+
+        .label{
+            font-size: 100%;
+          }
+
+
+}
